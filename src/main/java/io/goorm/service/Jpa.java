@@ -1,17 +1,15 @@
 package io.goorm.service;
 
 import io.goorm.model.Member;
+import io.goorm.util.JPAConnectionUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 public class Jpa {
 
 
     public void createMember() {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em  = JPAConnectionUtil.getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -29,7 +27,6 @@ public class Jpa {
             e.printStackTrace(); // 예외 출력
         } finally {
             em.close();
-            emf.close();
         }
 
     }
